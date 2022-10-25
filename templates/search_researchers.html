@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Results {% endblock %}
+
+{% block body %}
+<br><br>
+<h4>{{length}} record(s) found.</h4>
+<br><br>
+<table class="table"  id="ResearchersTable">
+    <thead class="thead-dark" style="position: sticky;">
+        <th>Surname(s)</th>
+        <th>Initials</th>
+        <th>Title</th>
+        <th>Institution</th>
+        <th>Rating</th>
+        <th>Primary Research</th>
+        <th>Secondary Research</th>
+        <th>Specializations)</th>
+    </thead>
+    {% for row in rows %}
+
+        <tr>
+              <td><a href={{'/researcher_'+row["id"]|string}}>{{row["surname"]}}</a></td>
+              <td>{{row["initials"]}}</td>
+              <td>{{row["title"]}}</td>
+              <td><a href={{'/inst_'+row["institution"].replace(' ','+')}}>{{row["institution"]}}</a></td>
+              <td>{{row["rating"]}}</td>
+              <td>{{row["primaryResearch"]}}</td>
+              <td>{{row["secondaryResearch"]}}</td>
+              <td>{{row["Specializations"]}}</td>
+
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

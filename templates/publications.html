@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+ <div class="text-center mt-5 container">
+    <form action="{{ url_for('publications') }}" method="POST">
+    <input type="text" name='query' placeholder="Type your search query here" class="form-control">
+      <input type="submit" value="Search">
+    </form>
+  </div> 
+
+
+
+{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %} Researchers {% endblock %}
+
+{% block body %}
+<br>
+<br>
+<div>
+  <form class="input-group input-group-xs" action="/search_results" method="GET">
+    <input type="text" placeholder="Search researchers..." class="form-control" name="researcher_search">
+    <input type="submit" value="Search">
+  </form>
+</div>
+<br><br>
+  <div>
+<h3 style="text-align: center">NRF Rated Artificial intelligence Researchers Of South Africa</h3>
+  </div>
+<span id='page_rating_dist' style="width: 800px; height: 600px;" class="center"></span>
+
+    <br><br><br>
+    <p class="text-heading-default font-weight-bold pix-ready"><span class="slide-in-container"><span class="d-inline-block text-heading-default animated">Apply</span></span> <span class="slide-in-container"><span class="d-inline-block text-heading-default animated">filter</span></span> </p>
+
+<script type='text/javascript'>
+var graphs = {{rating_dist | safe}};
+Plotly.plot('page_rating_dist',graphs,{});
+</script>
+
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="content">
+  <span class="input-group input-group-sm row" >
+    <div>
+    <label class="form-control col"> Surname
+     <select name="Surname" class="filter" style="border:0px; float: right;width=150px;" id="input_surname">
+        <option value="0">--</option>
+        {% for option in surn %}
+          <option value={{option['surname']}} style="width:150px">{{option["surname"]}}</option>
+        {% endfor %}
+      </select>
+    </label>
+    </div>
+    <div>
+    <label class="form-control col"> Rating
+     <select name="Rating" class="filter" style="border:0px; float: right;" id="input_rating">
+        <option value="0">--</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="P">P</option>
+       <option value="Y">Y</option>
+      </select>
+    </label>
+    </div>
+    <div>
+    <label class="form-control col" > Institution
+      <select name="Institution" class="filter" style="border:0px; float: right;width:150px;" id="input_institution">
+          <option value="0">--</option>
+          {% for option in inst %}
+            <option value="{{option['institution']}}" style="width:150px">{{option["institution"]}}</option>
+          {% endfor %}
+      </select>
+    </label>
+    </div>
+    <div>
+    <label class="form-control col"> Primary research
+      <select name="Primary research" class="filter" class=wgtmsr" style="border:0px; float: right; width:150px;" id="input_Primary">
+          <option value="0">--</option>
+          {% for option in prim %}
+            <option value="{{option}}" style="width:150px">{{option}}</option>
+          {% endfor %}
+      </select>
+    </label>
+    </div>
+    <div>
+    <label class="form-control col"> Secondary research
+      <select name="Secondary research" class="filter" class="wgtmsr" style="border:0px; float: right;width:150px;" id="input_Secondary">
+          <option value="0">--</option>
+          {% for option in sec %}
+            <option value="{{option}}" style="width:150px">{{option}}</option>
+          {% endfor %}
+      </select>
+    </label>
+    </div>
+      <div>
+    <label class="form-control col"> Specializations
+      <select name="Specializations" class="filter" class="wgtmsr" style="border:0px; float: right;width:150px;" id="input_Specializations">
+          <option value="0">--</option>
+          {% for option in spec %}
+            <option value="{{option}}" style="width:150px">{{option}}</option>
+          {% endfor %}
+      </select>
+    </label>
+    </div>
+  </span>
+<table class="table"  id="ResearchersTable">
+    <thead class="thead-dark" style="position: sticky;">
+      <tr>
+        <th>Surname(s)</th>
+        <th>Initials)</th>
+        <th>Title</th>
+        <th>Institution</th>
+        <th>Rating</th>
+        <th>Primary Research</th>
+        <th>Secondary Research</th>
+        <th>Specializations</th>
+      </tr>
+    </thead>
+    {% for row in rows %}
+
+        <tr>
+              <tbody>
+
+              <td><a href={{'/researcher_'+row["id"]|string}}>{{row["surname"]}}</a></td>
+              <td class="initials">{{row["initials"]}}</td>
+              <td class="title">{{row["title"]}}</td>
+              <td class="institution"><a href={{'/inst_'+row["institution"].replace(" ","+")}}>{{row["institution"]}}</a></td>
+              <td class="rating">{{row["rating"]}}</td>
+              <td class="primaryResearch">{{row["primaryResearch"]}}</td>
+              <td class="secondaryResearch">{{row["secondaryResearch"]}}</td>
+              <td class="Specializations">{{row["Specializations"]}}</td>
+
+              </tbody>
+
+        </tr>
+    {% endfor %}
+
+
+</table>
+<br>
+<br>
+
+</div>
+
+<script src="/static/js/filter.js"></script>
+
+{% endblock %}
+
+

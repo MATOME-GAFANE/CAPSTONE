@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %} {{rows[0]["institution"]}} {% endblock %}
+
+{% block body %}
+<br><br>
+  <div>
+    <h2> {{rows[0]["institution"]}} </h2>
+  </div>
+
+<div class="card">
+  <section class="row">
+    <span style="float: left;">
+    <img src="{{logo_image}}" style="float:left; margin: 50px" width="450" height="300">
+    </span>
+    <span style="width: 600px; margin: 20px">
+    <strong>
+      <br><br>
+      The {{inst_data[0]["institution"]}} is a research intensive institution located in {{inst_data[0]["location"]}}. The institution has {{sum}} researchers who are engaged in artificial intelligence research.
+      Of those {{sum}} researchers there are:<br>
+      {{values[0]}} : A rated <br>
+      {{values[1]}} : B rated <br>
+      {{values[2]}} : C rated <br>
+      {{values[3]}} : P rated <br>
+      and {{values[4]}} : Y rated, according to the National research foundation (NRF)<br><br>
+   </strong><br>
+    </span>
+  </section>
+</div>
+<div class="col">
+  <span id='inst_dist' style="width: 800px; height: 600px;" class="center"></span>
+
+  <script type='text/javascript'>
+    var graphs = {{institution_dist | safe}};
+    Plotly.plot('inst_dist',graphs,{});
+  </script>
+</div>
+<br><br><br><br>
+
+<table class="table">
+  <thead class="thead-dark" style="position: sticky;">
+    <th>Surname(s)</th>
+    <th>Title</th>
+    <th>Initials</th>
+    <th>Rating</th>
+    <th>Institution</th>
+    <th>Primary Research</th>
+    <th>Secondary Research</th>
+    <th>Specializations</th>
+  </thead>
+
+  {% for row in rows %}
+  <tr>
+    <td><a href={{'/researcher_'+row["id"]|string}}>{{row["surname"]}}</a></td>
+    <td>{{row["initials"]}}</td>
+    <td>{{row["title"]}}</td>
+    <td><a href={{'/inst_'+row["institution"].replace(' ','+')}}>{{row["institution"]}}</a></td>
+    <td>{{row["rating"]}}</td>
+    <td>{{row["primaryResearch"]}}</td>
+    <td>{{row["secondaryResearch"]}}</td>
+    <td>{{row["Specializations"]}}</td>
+  {% endfor %}
+  </tr>
+</table>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}{{rows[0]["title"]}} {{rows[0]["surname"]}}{% endblock %}
+
+{% block body %}
+<!--suppress HtmlUnknownTag -->
+<div class="card">
+  <section class="row">
+    <span style="float:left; margin: 20px">
+      <br>
+      <br>
+      <img src="{{profile_image}}" style="float:left; margin: 15px;" width="350" height="350">
+    </span>
+    <span style="width: 500px; margin: 20px;">
+    <br>
+    <br>
+    <br>
+    <h3>{{rows[0]["title"]}} {{rows[0]["surname"]}}</h3>
+    <br>
+      <h6>Institution: <strong>{{rows[0]["institution"]}}</strong></h6>
+      <h6>Rating: <strong>{{rows[0]["Rating"]}}</strong></h6>
+      <h6>Primary research:</h6>
+      <ul>
+        {% for option in prim %}
+        <li value={{option}}><strong>{{option}}</strong></li>
+        {% endfor %}
+      </ul>
+      <h6>Secondary research:</h6>
+      <ul>
+        {% for option in sec %}
+        <li value={{option}}><strong>{{option}}</strong></li>
+        {% endfor %}
+      </ul>
+      <h6>Specializations:</h6>
+      <ul>
+        {% for option in spec %}
+        <li value={{option}}><strong>{{option}}</strong></li>
+        {% endfor %}
+      </ul>
+      <br>
+    </span>
+    <span style="margin: 15px;">
+      <br>
+      <br>
+      <img src="{{logo}}" style="align:right; margin: 15px;" width="350" height="350">
+    </span>
+  </section>
+</div>
+
+{% endblock %}

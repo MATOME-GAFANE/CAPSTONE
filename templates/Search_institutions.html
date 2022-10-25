@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Results {% endblock %}
+
+{% block body %}
+<br><br>
+<h4>{{length}} record(s) found.</h4>
+<br><br>
+
+<table class="table" style="background-color: white; overflow-y:scroll;">
+  <thead class="thead-dark" style="position: sticky;">
+    <th>Name</th>
+    <th>Location</th>
+    <th>Number of Researchers</th>
+
+  </thead>
+
+    {% for row in rows %}
+    <tr>
+      <td><a href={{'/inst_'+row["institution"].replace(' ','+')}}>{{row["institution"]}}</a></td>
+      <td>{{row["Location"]}}</td>
+      <td>{{row["NumberofResearchers"]}}</td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+{% endblock %}
